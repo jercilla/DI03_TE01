@@ -3,6 +3,19 @@
     <ion-title>
       Mis Noticias
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-select 
+        aria-label="Category" 
+        value="business"
+        (ionChange)="categoria($event)"
+      >
+        <ion-select-option value="general">GENERAL</ion-select-option>
+        <ion-select-option value="business">BUSINESS</ion-select-option>
+        <ion-select-option value="technology">TECHNOLOGY</ion-select-option>
+        <ion-select-option value="science">SCIENCE</ion-select-option>
+        <ion-select-option value="sports">SPORTS</ion-select-option>
+      </ion-select>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -39,7 +39,7 @@ export class Tab1Page {
     let respNoticiasObservable: Observable<RespuestaNoticias> | null = null;
     respNoticiasObservable =
       this.leerArticulosFicheroHttp.get<RespuestaNoticias>(
-        'https://newsapi.org/v2/everything?q=tesla&from=2023-12-15&sortBy=publishedAt&apiKey=d4bea64584a743eca3ce801dcad54a64'
+        '/assets/datos/articulos.json'
       );
     respNoticiasObservable.subscribe((resp) => {
       console.log('Noticias', resp);
@@ -47,16 +47,19 @@ export class Tab1Page {
     });
   }
 
-  private leerArticulosRest() {
+  private leerArticulosRest(categoria = 'business') {
     //Hacemos uso de la función get de HttpClient para leer el json diciendo que será de tipo RespuestaNoticias y la guardamos
     let respNoticiasObservable: Observable<RespuestaNoticias> | null = null;
     respNoticiasObservable =
       this.leerArticulosFicheroHttp.get<RespuestaNoticias>(
-        '/assets/datos/articulos.json'
+        'https://newsapi.org/v2/top-headlines?country=us&category=' +
+          categoria +
+          '&apiKey=d4bea64584a743eca3ce801dcad54a64'
       );
     respNoticiasObservable.subscribe((resp) => {
       console.log('Noticias', resp);
-      this.listaNoticias.push(...resp.articles);
+      // this.listaNoticias.push(...resp.articles);
+      this.listaNoticias = resp.articles;
     });
   }
 
@@ -77,5 +80,9 @@ export class Tab1Page {
     } else {
       this.gestionNoticiasLeerService.borrarNoticia(item);
     }
+  }
+
+  categoria(e: any) {
+    this.leerArticulosRest(e.detail.value);
   }
 }
